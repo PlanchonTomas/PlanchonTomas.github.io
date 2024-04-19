@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consulta de Usuarios</title>
+    <script src="script.js"></script>
+</head>
+<body>
+    <h1>Consulta de Usuarios</h1>
+    
+    <button onclick="consultar()">Buscar</button>
+
+    <h2>Usuario aleatorio:</h2>
+    <div id="usuario">
+        <img id="usuarioFoto" src="" alt="Foto de usuario">
+        <p><strong>Nombre:</strong> <span id="usuarioNombre"></span></p>
+        <p><strong>Apellido:</strong> <span id="usuarioApellido"></span></p>
+        <p><strong>Fecha de Nacimiento:</strong> <span id="usuarioFechaNacimiento"></span></p>
+        <p><strong>Localidad:</strong> <span id="usuarioLocalidad"></span></p>
+        <p><strong>Coordenadas:</strong> Latitud: <span id="usuarioLatitud"></span>, Longitud: <span id="usuarioLongitud"></span></p>
+    </div>
+
+    <h2>Personaje de Rick and Morty:</h2>
+    <div id="rickAndMorty">
+        <img id="rickAndMortyFoto" src="" alt="Foto de personaje">
+        <p><strong>Nombre:</strong> <span id="rickAndMortyNombre"></span></p>
+        <p><strong>Status:</strong> <span id="rickAndMortyStatus"></span></p>
+        <p><strong>Especie:</strong> <span id="rickAndMortyEspecie"></span></p>
+        <p><strong>Género:</strong> <span id="rickAndMortyGenero"></span></p>
+        <p><strong>Localización:</strong> <span id="rickAndMortyLocalizacion"></span></p>
+    </div>
+
+    <div id="mapa"></div>
+
+    <script src="funciones.js"></script>
+</body>
+</html>
