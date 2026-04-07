@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Number Sequence</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-container">
+    <div class="controls">
+      <label for="interval-input">Intervalo (1000 = 1 segundo):</label>
+      <input type="number" id="interval-input" min="100" value="1000" />
+      <button id="start-btn">Start</button>
+      <button id="stop-btn" disabled>Stop</button>
+    </div>
+    <div id="number-display" class="number-display">-</div>
+    <div id="sum-container" class="sum-container" hidden>
+      <label for="sum-input">Ingresa la suma total:</label>
+      <input type="number" id="sum-input" />
+      <button id="check-btn">Verificar</button>
+    </div>
+    <div id="feedback" class="feedback"></div>
+  </div>
+
+  <script src="function.js"></script>
+</body>
+</html>

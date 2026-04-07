@@ -1,0 +1,79 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Bahnschrift SemiBold', sans-serif;
+  background: #000000;
+  color: #12232e;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-container {
+  width: min(500px, 90vw);
+  padding: 20px;
+  border-radius: 0;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.controls {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.controls input,
+.controls button,
+.sum-container input,
+.sum-container button {
+  font-size: 1rem;
+  padding: 8px 10px;
+}
+
+.number-display {
+  font-size: 4rem;
+  font-weight: bold;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #d0d6df;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  background: #eef2f8;
+}
+
+.sum-container {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.feedback {
+  margin-top: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.feedback.success {
+  color: #0a7a0a;
+}
+
+.feedback.error {
+  color: #bf1f1f;
+}
