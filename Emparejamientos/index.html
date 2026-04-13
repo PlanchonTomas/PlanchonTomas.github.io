@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de Emparejar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Juego de Emparejar</h1>
+  <div id="estadisticas">
+    <div>
+      <span>Tiempo: </span>
+      <span id="cronometro">0:00</span>
+    </div>
+    <div>
+      <span>Intentos: </span>
+      <span id="intentos">0</span>
+    </div>
+  </div>
+  <div id="matriz"></div>
+  <div id="mensaje" style="display: none;">
+    <p>¡Completado!</p>
+    <button onclick="location.reload()">Jugar de Nuevo</button>
+  </div>
+  
+  <script src="objetos.js"></script>
+  <script src="logica.js"></script>
+</body>
+</html>
