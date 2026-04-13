@@ -1,8 +1,13 @@
 var selectedPreguntas = [];
 var currentIndex = 0;
 var resultado = 0;
+var timerId = null;
+var countdownInterval = null;
+var tiempoLimite = 7;
 
-function fetchPreguntas() {
+window.addEventListener('DOMContentLoaded', fetchPreguntas);
+
+async function fetchPreguntas() {
     fetch('trivia_240_preguntas.json')
         .then(response => response.json())
         .then(data => {
@@ -46,17 +51,75 @@ function mostrarPreguntaActual() {
     let shuffledOpciones = opciones.sort(() => 0.5 - Math.random());
     let html = `<div class="pregunta" data-index="${currentIndex}">
         <p>${p.pregunta}</p>
+        <div class="temporizador">Tiempo restante: <span class="timer-value">${tiempoLimite}</span>s</div>
         ${shuffledOpciones.map(op => `<button onclick="verificarRespuesta('${op.replace(/'/g, "\\'")}', '${p.correcta.replace(/'/g, "\\'")}', ${currentIndex})">${op}</button>`).join('')}
         <div class="feedback"></div>
     </div>`;
     document.getElementById('preguntas').innerHTML = html;
+    iniciarTemporizador(currentIndex, p.correcta);
+}
+
+function iniciarTemporizador(index, correcta) {
+    detenerTemporizador();
+    let tiempo = tiempoLimite;
+    let timerSpan = document.querySelector(`.pregunta[data-index="${index}"] .timer-value`);
+    if (timerSpan) {
+        timerSpan.textContent = tiempo;
+    }
+
+    timerId = setTimeout(() => {
+        marcarTiempoAgotado(index, correcta);
+    }, tiempo * 1000);
+
+    countdownInterval = setInterval(() => {
+        tiempo--;
+        if (timerSpan) {
+            timerSpan.textContent = tiempo;
+        }
+        if (tiempo <= 0) {
+            clearInterval(countdownInterval);
+        }
+    }, 1000);
+}
+
+function detenerTemporizador() {
+    if (timerId) {
+        clearTimeout(timerId);
+        timerId = null;
+    }
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+    }
+}
+
+function marcarTiempoAgotado(index, correcta) {
+    let preguntaDiv = document.querySelector(`.pregunta[data-index="${index}"]`);
+    if (!preguntaDiv) {
+        return;
+    }
+    let buttons = preguntaDiv.querySelectorAll('button');
+    if ([...buttons].every(btn => btn.disabled)) {
+        return;
+    }
+
+    let feedbackDiv = preguntaDiv.querySelector('.feedback');
+    feedbackDiv.textContent = 'Tiempo agotado. La respuesta correcta es: ' + correcta;
+    feedbackDiv.style.color = 'red';
+    buttons.forEach(btn => btn.disabled = true);
+    feedbackDiv.insertAdjacentHTML('beforeend', '<br><button onclick="siguientePregunta()">Siguiente</button>');
 }
 
 function verificarRespuesta(opcion, correcta, index) {
+    detenerTemporizador();
     let preguntaDiv = document.querySelector(`.pregunta[data-index="${index}"]`);
     let feedbackDiv = preguntaDiv.querySelector('.feedback');
     let buttons = preguntaDiv.querySelectorAll('button');
-    
+
+    if ([...buttons].every(btn => btn.disabled)) {
+        return;
+    }
+
     if (opcion === correcta) {
         feedbackDiv.textContent = '¡Correcto!';
         feedbackDiv.style.color = 'green';
@@ -65,11 +128,8 @@ function verificarRespuesta(opcion, correcta, index) {
         feedbackDiv.textContent = 'Incorrecto. La respuesta correcta es: ' + correcta;
         feedbackDiv.style.color = 'red';
     }
-    
-    // Deshabilitar todos los botones de esta pregunta
+
     buttons.forEach(btn => btn.disabled = true);
-    
-    // Agregar botón siguiente
     feedbackDiv.insertAdjacentHTML('beforeend', '<br><button onclick="siguientePregunta()">Siguiente</button>');
 }
 
