@@ -1,0 +1,142 @@
+CREATE TABLE `alumnos` (
+	`ID_Alumno` INT NOT NULL AUTO_INCREMENT,
+	`Nombre` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Edad` INT NOT NULL,
+	`DNI` INT NOT NULL,
+	`Email` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`ID_Carrera` INT NOT NULL DEFAULT '0',
+	PRIMARY KEY (`ID_Alumno`) USING BTREE,
+	UNIQUE INDEX `DNI` (`DNI`) USING BTREE,
+	INDEX `FK1_carrera_del_alumno` (`ID_Carrera`) USING BTREE,
+	CONSTRAINT `FK1_carrera_del_alumno` FOREIGN KEY (`ID_Carrera`) REFERENCES `carreras` (`ID_Carrera`) ON UPDATE RESTRICT ON DELETE RESTRICT
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=28
+;
+
+CREATE TABLE `carreras` (
+	`ID_Carrera` INT NOT NULL AUTO_INCREMENT,
+	`Nombre` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	PRIMARY KEY (`ID_Carrera`) USING BTREE
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=4
+;
+
+CREATE TABLE `materias` (
+	`ID_Materia` INT NOT NULL AUTO_INCREMENT,
+	`Nombre` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Curso` INT NOT NULL,
+	`ID_Profesor` INT NOT NULL,
+	`ID_Carrera` INT NOT NULL,
+	PRIMARY KEY (`ID_Materia`) USING BTREE,
+	INDEX `FK1_carrera_de_la_materia` (`ID_Carrera`) USING BTREE,
+	INDEX `FK2_profesor_de_la_materia` (`ID_Profesor`) USING BTREE,
+	CONSTRAINT `FK1_carrera_de_la_materia` FOREIGN KEY (`ID_Carrera`) REFERENCES `carreras` (`ID_Carrera`) ON UPDATE RESTRICT ON DELETE RESTRICT,
+	CONSTRAINT `FK2_profesor_de_la_materia` FOREIGN KEY (`ID_Profesor`) REFERENCES `profesores` (`ID_Profesor`) ON UPDATE RESTRICT ON DELETE RESTRICT
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=31
+;
+
+CREATE TABLE `profesores` (
+	`ID_Profesor` INT NOT NULL AUTO_INCREMENT,
+	`Nombre` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`Email` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	PRIMARY KEY (`ID_Profesor`) USING BTREE
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=16
+;
+
+-- CARRERAS (3 registros)
+INSERT INTO Carreras (ID_Carrera, Nombre) VALUES
+(1, 'Ingeniería en Sistemas'),
+(2, 'Administración de Empresas'),
+(3, 'Contador Público');
+
+
+-- PROFESORES (15 registros)
+INSERT INTO Profesores (ID_Profesor, Nombre, Email) VALUES
+(1, 'Juan Pérez', 'juan.perez@uni.com'),
+(2, 'María Gómez', 'maria.gomez@uni.com'),
+(3, 'Carlos López', 'carlos.lopez@uni.com'),
+(4, 'Ana Martínez', 'ana.martinez@uni.com'),
+(5, 'Luis Fernández', 'luis.fernandez@uni.com'),
+(6, 'Sofía Ramírez', 'sofia.ramirez@uni.com'),
+(7, 'Diego Torres', 'diego.torres@uni.com'),
+(8, 'Valeria Castro', 'valeria.castro@uni.com'),
+(9, 'Jorge Díaz', 'jorge.diaz@uni.com'),
+(10, 'Lucía Herrera', 'lucia.herrera@uni.com'),
+(11, 'Pedro Silva', 'pedro.silva@uni.com'),
+(12, 'Camila Morales', 'camila.morales@uni.com'),
+(13, 'Andrés Rojas', 'andres.rojas@uni.com'),
+(14, 'Paula Navarro', 'paula.navarro@uni.com'),
+(15, 'Ricardo Vega', 'ricardo.vega@uni.com');
+
+
+-- ALUMNOS (25 registros)
+INSERT INTO Alumnos (Nombre, Edad, DNI, Email, ID_Carrera) VALUES
+('Lucas Sánchez', 20, '30123456', 'lucas.sanchez@mail.com', 1),
+('Martina López', 22, '31234567', 'martina.lopez@mail.com', 2),
+('Santiago Gómez', 19, '32345678', 'santiago.gomez@mail.com', 1),
+('Valentina Pérez', 21, '33456789', 'valentina.perez@mail.com', 3),
+('Mateo Fernández', 23, '34567890', 'mateo.fernandez@mail.com', 2),
+('Camila Rodríguez', 20, '35678901', 'camila.rodriguez@mail.com', 1),
+('Benjamín Torres', 24, '36789012', 'benjamin.torres@mail.com', 3),
+('Emma Díaz', 18, '37890123', 'emma.diaz@mail.com', 1),
+('Thiago Castro', 22, '38901234', 'thiago.castro@mail.com', 2),
+('Olivia Herrera', 21, '39012345', 'olivia.herrera@mail.com', 3),
+('Joaquín Silva', 23, '40123456', 'joaquin.silva@mail.com', 1),
+('Isabella Morales', 20, '41234567', 'isabella.morales@mail.com', 2),
+('Lautaro Rojas', 19, '42345678', 'lautaro.rojas@mail.com', 1),
+('Mía Navarro', 22, '43456789', 'mia.navarro@mail.com', 3),
+('Franco Vega', 24, '44567890', 'franco.vega@mail.com', 2),
+('Alma Ortiz', 18, '45678901', 'alma.ortiz@mail.com', 1),
+('Agustín Medina', 21, '46789012', 'agustin.medina@mail.com', 3),
+('Julieta Cabrera', 23, '47890123', 'julieta.cabrera@mail.com', 2),
+('Tomás Núñez', 20, '48901234', 'tomas.nunez@mail.com', 1),
+('Renata Iglesias', 22, '49012345', 'renata.iglesias@mail.com', 3),
+('Facundo Molina', 24, '50123456', 'facundo.molina@mail.com', 2),
+('Catalina Suárez', 19, '51234567', 'catalina.suarez@mail.com', 1),
+('Bruno Paredes', 21, '52345678', 'bruno.paredes@mail.com', 3),
+('Victoria Acosta', 23, '53456789', 'victoria.acosta@mail.com', 2),
+('Ignacio Quiroga', 20, '54567890', 'ignacio.quiroga@mail.com', 1);
+
+
+-- MATERIAS (30 registros)
+INSERT INTO Materias (Nombre, Curso, ID_Carrera, ID_Profesor) VALUES
+('Programación I', 1, 1, 1),
+('Programación II', 2, 1, 2),
+('Base de Datos', 2, 1, 3),
+('Sistemas Operativos', 3, 1, 4),
+('Redes', 3, 1, 5),
+('Ingeniería de Software', 4, 1, 6),
+('Matemática I', 1, 1, 7),
+('Matemática II', 2, 1, 8),
+('Física', 1, 1, 9),
+('Algoritmos', 1, 1, 10),
+('Contabilidad I', 1, 2, 11),
+('Contabilidad II', 2, 2, 12),
+('Administración I', 1, 2, 13),
+('Administración II', 2, 2, 14),
+('Marketing', 3, 2, 15),
+('Economía', 1, 2, 1),
+('Finanzas', 3, 2, 2),
+('Recursos Humanos', 2, 2, 3),
+('Logística', 3, 2, 4),
+('Comercio Exterior', 4, 2, 5),
+('Impuestos I', 1, 3, 6),
+('Impuestos II', 2, 3, 7),
+('Auditoría', 3, 3, 8),
+('Costos', 2, 3, 9),
+('Derecho Tributario', 3, 3, 10),
+('Contabilidad Avanzada', 4, 3, 11),
+('Finanzas Públicas', 3, 3, 12),
+('Peritaje Contable', 4, 3, 13),
+('Análisis Financiero', 2, 3, 14),
+('Ética Profesional', 1, 3, 15);
